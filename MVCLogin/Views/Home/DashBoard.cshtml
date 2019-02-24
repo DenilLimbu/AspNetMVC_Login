@@ -1,0 +1,12 @@
+﻿@model MVCLogin.Models.User
+
+@{
+    ViewBag.Title = "DashBoard";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Welcome User</h2>
+
+@Html.DisplayFor(model => model.Email)
+@Html.DisplayFor(model => model.Password)
+

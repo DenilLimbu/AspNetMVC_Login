@@ -130,6 +130,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Layers\BusinessLayer\BusinessAuthentication.cs" />
+    <Compile Include="Layers\BusinessLayer\IBusinessAuthentication.cs" />
+    <Compile Include="Layers\DataLayer\DataAccess.cs" />
+    <Compile Include="Layers\DataLayer\IDataAccess.cs" />
+    <Compile Include="Layers\DataLayer\IRepository.cs" />
+    <Compile Include="Layers\DataLayer\Repository.cs" />
+    <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -168,10 +175,10 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\DashBoard.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
