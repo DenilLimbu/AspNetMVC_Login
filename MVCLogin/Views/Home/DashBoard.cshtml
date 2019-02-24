@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Welcome User</h2>
+<h2>@ViewBag.Message</h2>
 
 @Html.DisplayFor(model => model.Email)
 @Html.DisplayFor(model => model.Password)

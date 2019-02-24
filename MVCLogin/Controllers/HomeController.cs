@@ -30,7 +30,7 @@ namespace MVCLogin.Controllers
         [HttpPost]
         public ActionResult Index(string email, string password)
         {
-
+           
             string result;
             _user.Email = email;
             _user.Password = password;
@@ -44,22 +44,37 @@ namespace MVCLogin.Controllers
                 
             }
             if(result != " ")
-            {
-                var succ= new HomeController().DashBoard(result);
+            { 
+                return RedirectToAction("DashBoard", "Home", new {rep =result});
             }
             else
             {
                 ViewBag.Message = "Invalid User";
+                return View();
             }
-        
-            return View();
         }
 
 
         [HttpGet]
-        public ActionResult DashBoard(string result)
+        public ActionResult DashBoard(string rep)
         {
-            return View();
+            try
+            {
+                if (rep != null)
+                {
+                    ViewBag.Message= "Welcome User!!";
+                    return View();
+                }
+                else
+                {
+                    throw new Exception();
+                }
+            }
+            catch(Exception)
+            { 
+                ViewBag.Message = "OOPS!! 404 Not Found";
+                return View();
+            }
         }
 
         public ActionResult About()
