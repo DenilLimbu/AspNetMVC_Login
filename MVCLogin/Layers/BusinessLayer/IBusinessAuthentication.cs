@@ -9,5 +9,7 @@ namespace MVCLogin.Layers.BusinessLayer
     public interface IBusinessAuthentication
     {
         string IsValidUser(string email, string password);
+
+        List<string> GetUserProfile(Guid userid);
     }
 }

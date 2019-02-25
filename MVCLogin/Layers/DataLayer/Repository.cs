@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 
@@ -36,13 +37,44 @@ namespace MVCLogin.Layers.DataLayer
                 }
             }
 
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw ex;
             }
-
             return result;
+        }
 
+        public List<string> GetUserProfile(Guid userid)
+        {
+       
+            DataTable dta = new DataTable();
+
+            List<string> result = new List<string>();
+            try
+            {
+                string sql = "select FirstName, LastName, Email from Users where UserId=@userid";
+                List<DbParameter> plist = new List<DbParameter>();
+
+                SqlParameter p1 = new SqlParameter("@userid", SqlDbType.UniqueIdentifier);
+                p1.Value = userid;
+                plist.Add(p1);
+
+                dta = _dac.GetDataTable(sql, plist);
+
+                foreach (DataRow row in dta.Rows) // Loop the rows.
+                {
+                    foreach (var item in row.ItemArray) // then items
+                    {
+                        result.Add(item.ToString());
+                    }
+                }
+            }
+
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return result;
         }
     }
 }
