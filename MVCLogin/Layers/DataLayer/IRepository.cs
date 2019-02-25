@@ -9,7 +9,6 @@ namespace MVCLogin.Layers.DataLayer
     public interface IRepository
     {
         string IsValidUser(string email, string password);
-
         List<string> GetUserProfile(Guid userid);
     }
 }

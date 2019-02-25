@@ -57,7 +57,6 @@ namespace MVCLogin.Controllers
             {
                 return RedirectToAction("DError", "Home", ex);
             }
-
         }
 
         [HttpGet]

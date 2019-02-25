@@ -16,7 +16,6 @@ namespace MVCLogin.Layers.DataLayer
         public string IsValidUser(string email, string password)
         {
             string result = " ";
-
             try
             {
                 string sql = "select UserID from Users where email=@email and password=@password";
@@ -36,7 +35,6 @@ namespace MVCLogin.Layers.DataLayer
                     result = obj.ToString();
                 }
             }
-
             catch (Exception ex)
             {
                 throw ex;
@@ -46,21 +44,16 @@ namespace MVCLogin.Layers.DataLayer
 
         public List<string> GetUserProfile(Guid userid)
         {
-       
             DataTable dta = new DataTable();
-
             List<string> result = new List<string>();
             try
             {
                 string sql = "select FirstName, LastName, Email from Users where UserId=@userid";
                 List<DbParameter> plist = new List<DbParameter>();
-
                 SqlParameter p1 = new SqlParameter("@userid", SqlDbType.UniqueIdentifier);
                 p1.Value = userid;
                 plist.Add(p1);
-
                 dta = _dac.GetDataTable(sql, plist);
-
                 foreach (DataRow row in dta.Rows) // Loop the rows.
                 {
                     foreach (var item in row.ItemArray) // then items
@@ -69,7 +62,6 @@ namespace MVCLogin.Layers.DataLayer
                     }
                 }
             }
-
             catch (Exception ex)
             {
                 throw ex;

@@ -16,7 +16,6 @@ namespace MVCLogin.Layers.BusinessLayer
             try
             {
                 result  = _repo.IsValidUser(email, password);
-                    
             }
             catch (Exception ex)
             {
@@ -25,15 +24,12 @@ namespace MVCLogin.Layers.BusinessLayer
             return result;
         }
 
-
         public List<string> GetUserProfile(Guid userid)
         {
-
             List<string> result= new List<string>();
             try
             {
                 result = _repo.GetUserProfile(userid);
-
             }
             catch (Exception ex)
             {
