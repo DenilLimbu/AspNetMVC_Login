@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MVCLogin.Models;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
@@ -42,31 +43,64 @@ namespace MVCLogin.Layers.DataLayer
             return result;
         }
 
-        public List<string> GetUserProfile(Guid userid)
+        public List<UserProfile> GetUserProfile(Guid userid)
         {
             DataTable dta = new DataTable();
-            List<string> result = new List<string>();
+
+            //List<User> upf = new List<User>();
+
+            List<UserProfile> userprofilelist = new List<UserProfile>();
+            
+
             try
             {
-                string sql = "select FirstName, LastName, Email from Users where UserId=@userid";
+                //string sql = "select FirstName, LastName, Email from Users where UserId=@userid";
+
+                string sql = "select UserProfileID, UserUserId, Phonenumber, BirthDate, Address, PostCode, State, Country, MaritalStatus, Email, FirstName, LastName from UserProfile Inner Join Users on UserProfile.UserUserID = Users.UserID AND Users.UserID=@userid";
+
                 List<DbParameter> plist = new List<DbParameter>();
                 SqlParameter p1 = new SqlParameter("@userid", SqlDbType.UniqueIdentifier);
                 p1.Value = userid;
                 plist.Add(p1);
+
                 dta = _dac.GetDataTable(sql, plist);
-                foreach (DataRow row in dta.Rows) // Loop the rows.
-                {
-                    foreach (var item in row.ItemArray) // then items
-                    {
-                        result.Add(item.ToString());
-                    }
-                }
+
+                #region
+                //    foreach (DataRow row in dta.Rows) // Loop the rows.
+                //    {
+                //        foreach (var item in row.ItemArray) // then items
+                //        {
+                //            result.Add(item.ToString());
+                //        }
+                //    }
+                //    List<string> se = result;
+                //}
+                #endregion
+
+                userprofilelist = dta.AsEnumerable().Select(row =>
+                            new UserProfile
+                            {
+                                UserProfileId = row.Field<int>("UserProfileId"),
+                                UserUserId = row.Field<Guid>("UserUserID"),
+                                PhoneNumber = row.Field<string>("Phonenumber"),
+                                BirthDate = row.Field<DateTime>("BirthDate"),
+                                FirstLineAddress = row.Field<string>("Address"),
+                                PostCode = row.Field<string>("PostCode"),
+                                State = row.Field<string>("State"),
+                                Country = row.Field<string>("Country"),
+                                MaritalStatus= row.Field<string>("MaritalStatus"),
+                                Email = row.Field<string>("Email"),
+                                FirstName= row.Field<string>("FirstName"),
+                                LastName= row.Field<string>("LastName")
+                            }).ToList();
             }
+
+
             catch (Exception ex)
             {
                 throw ex;
             }
-            return result;
+            return userprofilelist;
         }
     }
 }

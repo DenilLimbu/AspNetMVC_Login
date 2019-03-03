@@ -1,0 +1,66 @@
+﻿@model IEnumerable<MVCLogin.Models.UserProfile>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutFoundation.cshtml";
+}
+
+<h3>@ViewBag.Message</h3>
+
+
+<h3>Profile Page</h3>
+
+<table class="table">
+    @foreach (var item in Model)
+    {
+        <tr>
+            <th scope="row">@Html.DisplayNameFor(model => model.FirstName)</th>
+            <td>@Html.DisplayFor(modelItem => item.FirstName)</td>
+        </tr>
+
+        <tr>
+            <th scope="row">@Html.DisplayNameFor(model => model.LastName)</th>
+            <td>@Html.DisplayFor(modelItem => item.LastName)</td>
+        </tr>
+
+        <tr>
+            <th scope="row">@Html.DisplayNameFor(model => model.Email)</th>
+            <td>@Html.DisplayFor(model => item.Email)</td>
+        </tr>
+
+        <tr>
+            <th scope="row">@Html.DisplayNameFor(model => model.BirthDate)</th>
+            <td>@Html.DisplayFor(modelItem => item.BirthDate)</td>
+        </tr>
+
+        <tr>
+            <th scope="row">@Html.DisplayNameFor(model => model.PhoneNumber)</th>
+            <td>@Html.DisplayFor(model => item.PhoneNumber)</td>
+        </tr>
+
+        <tr>
+            <th scope="row">@Html.DisplayNameFor(model => model.FirstLineAddress)</th>
+            <td>@Html.DisplayFor(modelItem => item.FirstLineAddress)</td>
+        </tr>
+
+        <tr>
+            <th scope="row">@Html.DisplayNameFor(model => model.PostCode)</th>
+            <td>@Html.DisplayFor(modelItem => item.PostCode)</td>
+        </tr>
+        <tr>
+            <th scope="row">@Html.DisplayNameFor(model => model.State)</th>
+            <td>@Html.DisplayFor(modelItem => item.State)</td>
+        </tr>
+
+        <tr>
+            <th scope="row">@Html.DisplayNameFor(model => model.Country)</th>
+            <td>@Html.DisplayFor(modelItem => item.Country)</td>
+        </tr>
+
+        <tr>
+            <th scope="row">@Html.DisplayNameFor(model => model.MaritalStatus)</th>
+            <td>@Html.DisplayFor(modelItem => item.MaritalStatus)</td>
+        </tr>
+    }
+
+</table>

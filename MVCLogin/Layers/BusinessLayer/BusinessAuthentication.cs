@@ -1,4 +1,5 @@
 ﻿using MVCLogin.Layers.DataLayer;
+using MVCLogin.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,9 +25,9 @@ namespace MVCLogin.Layers.BusinessLayer
             return result;
         }
 
-        public List<string> GetUserProfile(Guid userid)
+        public List<UserProfile> GetUserProfile(Guid userid)
         {
-            List<string> result= new List<string>();
+            List<UserProfile> result= new List<UserProfile>();
             try
             {
                 result = _repo.GetUserProfile(userid);

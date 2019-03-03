@@ -16,11 +16,10 @@ namespace MVCLogin.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            object UserId = Session["UserId"];
             try { 
-                if (UserId != null)
+                if (Session["UserId"] != null)
                 {
-                    return RedirectToAction("DashBoard", "Home");
+                    return RedirectToAction("Index", "Dashboard");
                 }
                 else
                 {
@@ -29,7 +28,7 @@ namespace MVCLogin.Controllers
             }
             catch(Exception ex)
             {
-                return RedirectToAction("DError", "Home", ex);
+                return RedirectToAction("Index", "Error", ex);
             }
         }
 
@@ -45,7 +44,7 @@ namespace MVCLogin.Controllers
                 if (result != " ")
                 {
                     Session["UserId"] = result;
-                    return RedirectToAction("DashBoard", "Home");
+                    return RedirectToAction("Index", "Dashboard");
                 }
                 else
                 {
@@ -55,55 +54,9 @@ namespace MVCLogin.Controllers
             }
             catch (Exception ex)
             {
-                return RedirectToAction("DError", "Home", ex);
+                return RedirectToAction("Index", "Error", ex);
             }
         }
 
-        [HttpGet]
-        public ActionResult DashBoard()
-        {
-            object UserId = Session["UserId"];
-            try
-            {
-                if (UserId == null)
-                {
-                    return RedirectToAction("DError", "Home");
-                }
-
-                Guid GUserID = Guid.Parse(UserId.ToString());
-
-                List<string> result = new List<string>();
-
-                result = _ibac.GetUserProfile(GUserID);
-
-                if (result != null)
-                {
-                    ViewBag.Message= "Welcome" + result[0] + result [1] + ".";
-                    ViewBag.Message1 = "Your Email id is " + result[2];
-                    return View();
-                }
-                else
-                {
-                    return RedirectToAction("DError", "Home");
-                }
-            }
-            catch (Exception ex)
-            {
-                return RedirectToAction("DError", "Home", ex);
-            }
-        }
-
-        public ActionResult Logout()
-        {
-            Session["UserId"] = null;
-
-            return RedirectToAction("Index", "Home");
-        }
-
-        public ActionResult DError(Exception ex)
-        {
-            ViewBag.Message = ex;
-            return View();
-        }
     }
 }

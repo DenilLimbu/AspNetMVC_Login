@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MVCLogin.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,6 +10,6 @@ namespace MVCLogin.Layers.DataLayer
     public interface IRepository
     {
         string IsValidUser(string email, string password);
-        List<string> GetUserProfile(Guid userid);
+        List<UserProfile> GetUserProfile(Guid userid);
     }
 }
