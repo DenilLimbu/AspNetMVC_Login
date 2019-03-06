@@ -8,6 +8,8 @@ using System.Web.Mvc;
 
 namespace MVCLogin.Controllers
 {
+    [RequireHttps]
+    [AllowAnonymous]
     public class HomeController : Controller
     {
         public User _user = new User();
@@ -26,15 +28,17 @@ namespace MVCLogin.Controllers
                     return View();
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                return RedirectToAction("Index", "Error", ex);
+                throw ex;
             }
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Index(string email, string password)
         { 
+            
             string result;
             _user.Email = email;
             _user.Password = password;
@@ -54,8 +58,49 @@ namespace MVCLogin.Controllers
             }
             catch (Exception ex)
             {
-                return RedirectToAction("Index", "Error", ex);
+                throw ex;
             }
+        }
+
+
+        [HttpGet]
+        public ActionResult SignUp()
+        {
+
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult SignUp(string firstname, string lastname, string email, string password)
+        {
+
+            //if (ModelState.IsValid)
+            //{
+
+            //    return RedirectToAction("Index", "Dashboard");
+            //}
+            Guid result;
+
+            try
+            {
+                result = _ibac.InsertUserDetails(firstname, lastname, email, password);
+                if (result != null)
+                {
+                    Session["UserId"] = result;
+                    return RedirectToAction("Register", "Dashboard");
+                }
+                else
+                {
+                    TempData["SignupMessage"] = "Unsucessful SignUp";
+                    ViewBag.Message = "User Is not created";
+                    return RedirectToAction("Index", "Dashboard", TempData["SignupMessage"]);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
         }
 
     }

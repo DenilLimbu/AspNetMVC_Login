@@ -8,6 +8,8 @@ using System.Web.Mvc;
 
 namespace MVCLogin.Controllers
 {
+    [RequireHttps]
+    [AllowAnonymous]
     public class DashBoardController : Controller
     {
         IBusinessAuthentication _ibac = new BusinessAuthentication();
@@ -42,7 +44,7 @@ namespace MVCLogin.Controllers
             }
             catch (Exception ex)
             {
-                return RedirectToAction("Index", "Error", ex);
+                throw ex;
             }
         }
 
@@ -56,7 +58,58 @@ namespace MVCLogin.Controllers
             }
             catch (Exception ex)
             {
-                return RedirectToAction("Index", "Error", ex);
+                throw ex;
+            }
+        }
+
+        [HttpGet]
+        public ActionResult Register()
+        {
+            try
+            {
+                if (Session["UserId"] == null)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return View();
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Register(string phonenumber, DateTime birthdate, string firstlineaddress, string postcode, string state, string country, string maritalstatus)
+        {
+            object UserId = Session["UserId"];
+
+            Guid GUserID = Guid.Parse(UserId.ToString());
+
+            Guid result;
+            try
+            {
+                if (Session["UserId"] == null)
+                {
+                    return RedirectToAction("Index", "Dashboard");
+                }
+
+                result = _ibac.Register(GUserID, phonenumber, birthdate, firstlineaddress, postcode, state, country, maritalstatus);
+                if (result != null)
+                {
+                    return RedirectToAction("Index", "Dashboard");
+                }
+                else
+                {
+                    ViewBag.Message = "Invalid User";
+                    return View();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
             }
         }
     }

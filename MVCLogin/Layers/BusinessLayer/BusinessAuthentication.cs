@@ -38,5 +38,37 @@ namespace MVCLogin.Layers.BusinessLayer
             }
             return result;
         }
+
+
+        public Guid InsertUserDetails(string firstname, string lastname, string email, string password)
+        {
+            Guid result;
+
+            try
+            {
+                result = _repo.InsertUserDetails(firstname, lastname, email, password);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return result;
+
+        }
+
+        public Guid Register(Guid userid, string phonenumber, DateTime birthdate, string address, string postcode, string state, string country, string maritalstatus)
+        {
+            Guid result;
+
+            try
+            {
+                    result = _repo.Register(userid, phonenumber, birthdate, address, postcode, state, country, maritalstatus);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return result;
+        }
     }
 }

@@ -1,5 +1,8 @@
-﻿@{
-    ViewBag.Title = "Home Page";
+﻿@model MVCLogin.Models.User
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <body>
@@ -9,6 +12,7 @@
             padding-top: 50px;
             padding-left: 600px;
         }
+
             .form1 input {
                 font-family: "Roboto", sans-serif;
                 outline: 0;
@@ -37,7 +41,7 @@
             }
 
 
-        .login-page {
+        .signup-page {
             width: 360px;
             padding: 8% 0 0;
             margin: auto;
@@ -53,6 +57,8 @@
             text-align: center;
             box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
         }
+
+
 
             .form input {
                 font-family: "Roboto", sans-serif;
@@ -80,32 +86,116 @@
             }
 
 
-        .form button:hover, .form button:active, .form button:focus {
-            background: #43A047;
+            .form button:hover, .form button:active, .form button:focus {
+                background: #43A047;
+            }
+
+
+        .new {
+            font-family: "Roboto", sans-serif;
+            outline: 0;
+            background: #f2f2f2;
+            width: 100%;
+            border: 0;
+            margin: 0 0 15px;
+            padding: 15px;
+            box-sizing: border-box;
+            font-size: 14px;
+        }
+
+        .new1 {
+            font-family: "Roboto", sans-serif;
+            text-transform: uppercase;
+            outline: 0;
+            background: #4CAF50;
+            width: 100%;
+            border: 0;
+            padding: 15px;
+            color: #FFFFFF;
+            font-size: 14px;
+            cursor: pointer;
         }
     </style>
 
     <div class="form1">
+        @ViewBag.Message
         @using (Html.BeginForm("Index", "Home"))
         {
-            @ViewBag.Message
-            <input type="text" name="email" placeholder="Email"/>
-            <input type="password" name="password" placeholder="Password"/>
+            @Html.AntiForgeryToken()
+            <input type="text" name="email"   />
+            <input type="password" name="password" placeholder="Password" />
             <input id="Button2" type="submit" value="Login" />
 
         }
         <p class="message">Not registered? <a href="#">Create an account</a></p>
     </div>
 
-    <div class="login-page">
+
+
+    <div class="signup-page">
         <div class="form">
-            <form class="register-form">
-                <input type="text" placeholder="name" />
-                <input type="password" placeholder="password" />
-                <input type="text" placeholder="email address" />
-                <input id="Button1" type="button" value="Create" onclick="location.href='@Url.Action("Contact", "Home")'" />
+            @using (Html.BeginForm("SignUp", "Home"))
+            {
+                @Html.AntiForgeryToken()
+                <input type="text" name="firstname" placeholder="First Name" />
+                <input type="text" name="lastname" placeholder="Last Name" />
+                <input type="text" name="email" placeholder="Email address" />
+                <input type="password" name="password" placeholder="Password" />
+                <input id="Button1" type="submit" value="Create" />
                 <p class="message">Already registered? <a href="#">Sign In</a></p>
-            </form>
+            }
         </div>
     </div>
+
+
+
+
+
+
+    <div class="signup-page">
+        <div class="form">
+             @using (Html.BeginForm("SignUp", "Home"))
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-horizontal">
+
+                    <hr />
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+                    <div class="new">
+                        @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="new">
+                        @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                    </div>
+
+
+
+                    <div class="new">
+                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                    </div>
+
+
+
+
+                    <div class="new">
+                        @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                    </div>
+
+
+                    <div class="new">
+                        <input type="submit" value="Create" class="btn btn-default" />
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
 </body>

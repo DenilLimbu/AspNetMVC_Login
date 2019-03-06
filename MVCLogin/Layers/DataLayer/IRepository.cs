@@ -11,5 +11,9 @@ namespace MVCLogin.Layers.DataLayer
     {
         string IsValidUser(string email, string password);
         List<UserProfile> GetUserProfile(Guid userid);
+
+        Guid InsertUserDetails(string firstname, string lastname, string email, string password);
+
+        Guid Register(Guid userid, string phonenumber, DateTime birthdate, string address, string postcode, string state, string country, string maritalstatus);
     }
 }

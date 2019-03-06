@@ -80,9 +80,9 @@ namespace MVCLogin.Layers.DataLayer
                     cmd.Parameters.Add(p);
                 rows = cmd.ExecuteNonQuery();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                throw ex;
             }
             finally
             {
