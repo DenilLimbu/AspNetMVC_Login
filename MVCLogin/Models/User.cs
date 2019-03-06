@@ -11,14 +11,13 @@ namespace MVCLogin.Models
         public Guid UserID { get; set;}
 
         [Required]
-        
         [StringLength(100, ErrorMessage = "FirstName must be at least 5 characters in length", MinimumLength = 5)]
         [Display(Name = "FirstName")]
         public string FirstName { get; set; }
 
 
         [Required]
-        [StringLength(100, ErrorMessage = "FirstName must be at least 5 characters in length", MinimumLength = 5)]
+        [StringLength(100, ErrorMessage = "LastName must be at least 5 characters in length", MinimumLength = 5)]
         [Display(Name = "LastName")]
         public string LastName { get; set; }
 

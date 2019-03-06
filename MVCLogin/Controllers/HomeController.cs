@@ -16,8 +16,9 @@ namespace MVCLogin.Controllers
         IBusinessAuthentication _ibac = new BusinessAuthentication();
 
         [HttpGet]
-        public ActionResult Index()
+        public ActionResult Index(string message)
         {
+            
             try { 
                 if (Session["UserId"] != null)
                 {
@@ -25,6 +26,7 @@ namespace MVCLogin.Controllers
                 }
                 else
                 {
+                    ViewBag.Message = message;
                     return View();
                 }
             }
@@ -36,9 +38,41 @@ namespace MVCLogin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Index(string email, string password)
-        { 
-            
+        public ActionResult Index(User Model)
+        {
+            Guid result;
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    result = _ibac.InsertUserDetails(Model.FirstName, Model.LastName, Model.Email, Model.Password);
+                    if (result != null)
+                    {
+                        Session["UserId"] = result;
+                        return RedirectToAction("Register", "Dashboard");
+                    }
+                    else
+                    {
+                        TempData["SignupMessage"] = "Unsucessful SignUp";
+                        ViewBag.Message = "User Is not created";
+                        return RedirectToAction("Index", "Dashboard", TempData["SignupMessage"]);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            return View(Model);
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Login(string email, string password)
+        {
+
             string result;
             _user.Email = email;
             _user.Password = password;
@@ -52,8 +86,8 @@ namespace MVCLogin.Controllers
                 }
                 else
                 {
-                    ViewBag.Message = "Invalid User";
-                    return View();
+                    string message = "Invalid User";
+                    return RedirectToAction("Index", "Home", new {message});
                 }
             }
             catch (Exception ex)
@@ -61,6 +95,7 @@ namespace MVCLogin.Controllers
                 throw ex;
             }
         }
+
 
 
         [HttpGet]

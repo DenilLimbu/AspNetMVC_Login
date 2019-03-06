@@ -33,7 +33,7 @@ namespace MVCLogin.Controllers
 
                 if (result != null)
                 {
-                    ViewBag.Message = "Welcome " + result[0].FirstName + result[0].LastName + "!!";
+                    ViewBag.Message = "Welcome " + result[0].FirstName + " " + result[0].LastName + "!!";
                     ViewBag.Message1 = "Your Email id is " + result[0].Email;
                     return View(result);
                 }
@@ -82,35 +82,39 @@ namespace MVCLogin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Register(string phonenumber, DateTime birthdate, string firstlineaddress, string postcode, string state, string country, string maritalstatus)
+        public ActionResult Register(UserProfile Model)
         {
-            object UserId = Session["UserId"];
-
-            Guid GUserID = Guid.Parse(UserId.ToString());
-
-            Guid result;
-            try
+            if (ModelState.IsValid)
             {
-                if (Session["UserId"] == null)
-                {
-                    return RedirectToAction("Index", "Dashboard");
-                }
+                object UserId = Session["UserId"];
 
-                result = _ibac.Register(GUserID, phonenumber, birthdate, firstlineaddress, postcode, state, country, maritalstatus);
-                if (result != null)
+                Guid GUserID = Guid.Parse(UserId.ToString());
+
+                Guid result;
+                try
                 {
-                    return RedirectToAction("Index", "Dashboard");
+                    if (Session["UserId"] == null)
+                    {
+                        return RedirectToAction("Index", "Dashboard");
+                    }
+
+                    result = _ibac.Register(GUserID, Model.PhoneNumber, Model.BirthDate, Model.FirstLineAddress, Model.PostCode, Model.State, Model.Country, Model.MaritalStatus);
+                    if (result != null)
+                    {
+                        return RedirectToAction("Index", "Dashboard");
+                    }
+                    else
+                    {
+                        ViewBag.Message = "Invalid User";
+                        return View();
+                    }
                 }
-                else
+                catch (Exception ex)
                 {
-                    ViewBag.Message = "Invalid User";
-                    return View();
+                    throw ex;
                 }
             }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            return View(Model);
         }
     }
 }

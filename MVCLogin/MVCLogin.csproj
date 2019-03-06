@@ -180,7 +180,6 @@
     <Content Include="Views\Shared\_LayoutFoundation.cshtml" />
     <Content Include="Views\DashBoard\Index.cshtml" />
     <Content Include="Views\DashBoard\Register.cshtml" />
-    <Content Include="Views\Home\SignUp.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
