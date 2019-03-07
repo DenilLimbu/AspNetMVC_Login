@@ -181,6 +181,7 @@
     <Content Include="Views\DashBoard\Index.cshtml" />
     <Content Include="Views\DashBoard\Register.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Shared\_LayoutIndex.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

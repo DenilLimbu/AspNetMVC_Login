@@ -78,6 +78,7 @@ namespace MVCLogin.Controllers
             _user.Password = password;
             try
             {
+                //make implementation whether user has enter the details
                 result = _ibac.IsValidUser(email, password);
                 if (result != " ")
                 {
@@ -95,48 +96,5 @@ namespace MVCLogin.Controllers
                 throw ex;
             }
         }
-
-
-
-        [HttpGet]
-        public ActionResult SignUp()
-        {
-
-            return View();
-        }
-
-        [HttpPost]
-        public ActionResult SignUp(string firstname, string lastname, string email, string password)
-        {
-
-            //if (ModelState.IsValid)
-            //{
-
-            //    return RedirectToAction("Index", "Dashboard");
-            //}
-            Guid result;
-
-            try
-            {
-                result = _ibac.InsertUserDetails(firstname, lastname, email, password);
-                if (result != null)
-                {
-                    Session["UserId"] = result;
-                    return RedirectToAction("Register", "Dashboard");
-                }
-                else
-                {
-                    TempData["SignupMessage"] = "Unsucessful SignUp";
-                    ViewBag.Message = "User Is not created";
-                    return RedirectToAction("Index", "Dashboard", TempData["SignupMessage"]);
-                }
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-
-        }
-
     }
 }

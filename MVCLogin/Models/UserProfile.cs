@@ -18,9 +18,8 @@ namespace MVCLogin.Models
 
         public string Email { get; set; }
 
-
         [Required]
-        [StringLength(100, ErrorMessage = "FirstName must be at least 7 digits", MinimumLength = 10)]
+        [StringLength(100, ErrorMessage = "Phone number must be at least 7 digits", MinimumLength = 10)]
         [Display(Name = "PhoneNumber")]
         public string PhoneNumber { get; set; }
 
