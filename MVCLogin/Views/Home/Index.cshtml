@@ -81,6 +81,7 @@
 
     <div class="signup-page">
         <div class="form">
+            @ViewBag.SignupMessage
             @using (Html.BeginForm("Index", "Home"))
             {
                 @Html.AntiForgeryToken()

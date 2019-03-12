@@ -10,6 +10,9 @@ namespace MVCLogin.Layers.BusinessLayer
     public interface IBusinessAuthentication
     {
         string IsValidUser(string email, string password);
+
+        string IsFullRegistration(Guid userid);
+
         List<UserProfile> GetUserProfile(Guid userid);
 
         Guid InsertUserDetails(string firstname, string lastname, string email, string password);

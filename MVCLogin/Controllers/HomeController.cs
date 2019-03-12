@@ -18,7 +18,6 @@ namespace MVCLogin.Controllers
         [HttpGet]
         public ActionResult Index(string message)
         {
-            
             try { 
                 if (Session["UserId"] != null)
                 {
@@ -26,7 +25,8 @@ namespace MVCLogin.Controllers
                 }
                 else
                 {
-                    ViewBag.Message = message;
+                    ViewBag.Message = TempData["ErrorMessage"];
+                    ViewBag.SignupMessage = TempData["SignupMessage"];
                     return View();
                 }
             }
@@ -53,8 +53,7 @@ namespace MVCLogin.Controllers
                     }
                     else
                     {
-                        TempData["SignupMessage"] = "Unsucessful SignUp";
-                        ViewBag.Message = "User Is not created";
+                        TempData["SignupMessage"] = "SignUp is unsuccessful at this time";
                         return RedirectToAction("Index", "Dashboard", TempData["SignupMessage"]);
                     }
                 }
@@ -67,12 +66,10 @@ namespace MVCLogin.Controllers
             return View(Model);
         }
 
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Login(string email, string password)
         {
-
             string result;
             _user.Email = email;
             _user.Password = password;
@@ -87,8 +84,8 @@ namespace MVCLogin.Controllers
                 }
                 else
                 {
-                    string message = "Invalid User";
-                    return RedirectToAction("Index", "Home", new {message});
+                    TempData["ErrorMessage"] = "Invalid User";
+                    return RedirectToAction("Index", "Home");
                 }
             }
             catch (Exception ex)

@@ -27,6 +27,13 @@ namespace MVCLogin.Controllers
 
                 Guid GUserID = Guid.Parse(UserId.ToString());
 
+                string checkFullRegister = _ibac.IsFullRegistration(GUserID);
+
+                if (checkFullRegister == " ")
+                {
+                    return RedirectToAction("Register", "Dashboard");
+                }
+
                 List<UserProfile> result = new List<UserProfile>();
 
                 result = _ibac.GetUserProfile(GUserID);
@@ -65,11 +72,22 @@ namespace MVCLogin.Controllers
         [HttpGet]
         public ActionResult Register()
         {
+            object UserId = Session["UserId"];
+
             try
             {
                 if (Session["UserId"] == null)
                 {
                     return RedirectToAction("Index", "Home");
+                }
+
+                Guid GUserID = Guid.Parse(UserId.ToString());
+
+                string checkFullRegister = _ibac.IsFullRegistration(GUserID);
+
+                if (checkFullRegister != " ")
+                {
+                    return RedirectToAction("Index", "Dashboard");
                 }
             }
             catch (Exception ex)

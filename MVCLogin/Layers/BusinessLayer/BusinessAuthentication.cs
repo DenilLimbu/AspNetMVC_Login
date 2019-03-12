@@ -25,6 +25,21 @@ namespace MVCLogin.Layers.BusinessLayer
             return result;
         }
 
+
+        public string IsFullRegistration(Guid userid)
+        {
+            string result;
+            try
+            {
+                result = _repo.IsFullRegistration(userid);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return result;
+        }
+
         public List<UserProfile> GetUserProfile(Guid userid)
         {
             List<UserProfile> result= new List<UserProfile>();

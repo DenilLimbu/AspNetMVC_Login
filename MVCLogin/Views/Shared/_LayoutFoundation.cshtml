@@ -12,13 +12,16 @@
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>  
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
                 @Html.ActionLink("Foundation", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Chat", "PublicChat", "Chat")</li>
+                </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li>@Html.ActionLink("Log Out", "LogOut", "Dashboard")</li>
                 </ul>

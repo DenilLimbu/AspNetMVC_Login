@@ -10,6 +10,9 @@ namespace MVCLogin.Layers.DataLayer
     public interface IRepository
     {
         string IsValidUser(string email, string password);
+
+        string IsFullRegistration(Guid userid);
+
         List<UserProfile> GetUserProfile(Guid userid);
 
         Guid InsertUserDetails(string firstname, string lastname, string email, string password);

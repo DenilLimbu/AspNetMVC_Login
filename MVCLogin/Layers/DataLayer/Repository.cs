@@ -43,6 +43,35 @@ namespace MVCLogin.Layers.DataLayer
             return result;
         }
 
+
+        public string IsFullRegistration(Guid userid)
+        {
+            string result = " ";
+            try
+            {
+                string sql = "select UserProfile.UserUserID from UserProfile where UserProfile.UserUserID=@userid";
+
+                List<DbParameter> plist = new List<DbParameter>();
+                SqlParameter p1 = new SqlParameter("@userid", SqlDbType.UniqueIdentifier);
+                p1.Value = userid;
+                plist.Add(p1);
+
+                object obj = _dac.GetSingleAnswer(sql, plist);
+                if (obj != null)
+                {
+                    result = obj.ToString();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+
+            return result;
+        }
+
+
         public List<UserProfile> GetUserProfile(Guid userid)
         {
             DataTable dta = new DataTable();
