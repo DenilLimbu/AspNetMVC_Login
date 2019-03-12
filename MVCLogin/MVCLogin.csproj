@@ -171,6 +171,9 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\cool.gif" />
+    <Content Include="Images\laugh.gif" />
+    <Content Include="Images\smile.gif" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Properties\PublishProfiles\DemoFoundation - Web Deploy.pubxml" />
