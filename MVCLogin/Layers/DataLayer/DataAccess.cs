@@ -12,7 +12,7 @@ namespace MVCLogin.Layers.DataLayer
 
     public class DataAccess : IDataAccess
     {
-        string connStr = ConfigurationManager.ConnectionStrings["BANKDBCONN"].ConnectionString;
+        string connStr = ConfigurationManager.ConnectionStrings["FoundationConn"].ConnectionString;
 
         /// <summary>
         /// 
